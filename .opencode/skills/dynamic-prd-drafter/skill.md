@@ -1,11 +1,6 @@
 ---
 name: dynamic-drafting-prd
 description: Generates or updates a dynamic PRD based on context and routes the output to the appropriate folder such as /frontend or /backend. Use when converting evolving discussions into structured implementation-ready PRDs.
-compatibility: opencode
-metadata:
-  domain: product
-  workflow: dynamic-prd-routing
-  output: prd-draft
 ---
 
 # Drafting Dynamic PRD
