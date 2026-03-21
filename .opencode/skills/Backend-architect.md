@@ -5,16 +5,33 @@ description: |
   generates backend architecture, and defines API contracts.
 
   Covers:
-  - Infer backend requirements
-  - Backend questionnaire (interactive, one-by-one)
-  - Generate backend architecture
-  - Define API contract
+  - Step 4: Infer backend requirements
+  - Step 6: Backend questionnaire (interactive, one-by-one)
+  - Step 8: Generate backend architecture
+  - Step 9: Define API contract
 
+metadata:
+  version: "1.1.0"
+  category: architecture
+  priority: high
+  compatibility: opencode
 
-reference documents: 
-`/frontend/references/frontend-prd-draft.md`
-`/backend/references/backend-prd-draft.md`  
+inputs:
+  prd:
+    type: string
+    required: true
 
+  frontend_architecture:
+    type: string
+    required: true
+
+  design_spec:
+    type: string
+    required: false
+
+outputs:
+  format: markdown
+  destination: /backend
 ---
 
 # Backend Architect Skill
@@ -34,8 +51,9 @@ This skill operates **interactively** and must:
 # Step 4 — Infer Backend Requirements
 
 Analyze:
-- `../frontend-prd-draft.md`
-- `../backend-prd-draft.md`
+- PRD
+- Frontend architecture
+- Design spec (if available)
 
 Identify:
 
@@ -207,71 +225,3 @@ Generate structure:
     /routes
     /middleware
     /config
-
-Define responsibilities for each layer.
-
-Step 9 — Define API Contract
-
-Derive endpoints from:
-
-PRD features
-
-Frontend data requirements
-
-User flows
-
-Example:
-
-GET /api/users
-POST /api/users
-GET /api/projects
-POST /api/projects
-
-Map endpoints to frontend usage where applicable.
-
-Final Output (Saved to /backend)
-
-Generate a file:
-
-# BACKEND ARCHITECTURE
-
-## Selected Stack
-- Runtime:
-- Framework:
-- API Style:
-- Database:
-- ORM:
-- Authentication:
-- File Storage:
-- Real-Time:
-- Background Jobs:
-- Deployment:
-- Testing:
-
----
-
-## Architecture Structure
-[Folder structure + explanations]
-
----
-
-## API Contract
-[List endpoints]
-
----
-
-## Notes
-[Any important constraints or decisions]
-Rules
-
-Ask ONE question at a time
-
-Wait for user input before continuing
-
-Do NOT assume defaults unless user confirms
-
-Align everything with PRD + frontend
-
-Output must be saved in /backend
-
-Keep architecture production-ready
