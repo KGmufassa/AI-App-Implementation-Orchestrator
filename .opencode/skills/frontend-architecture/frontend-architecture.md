@@ -13,8 +13,9 @@ description: |
 ---
 
 reference paths:
- - `references/frontend-prd-draft.md`
+ - `reference/frontend-prd-draft.md`
  - `system/prd-draft.md`
+ - `reference/wireframe.md`
  - User defined
 
 ---
