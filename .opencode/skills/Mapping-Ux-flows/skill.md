@@ -3,6 +3,11 @@ name: mapping-user-flow-progression
 description: Maps detailed user experience progression and trigger-level interaction flows for an application. Use when defining page-by-page UX behavior, click triggers, state transitions, and navigation progression before implementation.
 ---
 
+Reference documents: 
+- /frontend/reference/ui-ux-draft.md
+- or user defined 
+
+---
 # Mapping Ux Flows
 
 ## Purpose
