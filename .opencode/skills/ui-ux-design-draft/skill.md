@@ -1,12 +1,8 @@
 ---
 name: designing-ui-ux-prd
 description: Ingests draft PRDs from selected paths and produces a structured UI/UX PRD with page-by-page layouts, button mappings, glyph suggestions, and interaction definitions. Use when locking frontend visual structure for an MVP. Asks UI/UX clarifying questions one at a time before proceeding.
-compatibility: opencode
-metadata:
-  domain: frontend
-  workflow: ui-ux-planning
-  output: frontend-prd
 ---
+
 
 # Designing UI/UX PRD Draft
 
@@ -209,7 +205,7 @@ All pages must be deterministic and implementation-ready.
 
 Write file to:
 
-`/frontend/ui-ux-design/ui-ux-draft.md`
+`/frontend/reference/ui-ux-draft.md`
 
 If folder does not exist:
 - Create it.
