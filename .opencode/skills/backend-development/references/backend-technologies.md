@@ -1,6 +1,32 @@
 # Backend Technologies
 
-Core technologies, frameworks, databases, and message queues for modern backend development (2025).
+Core technologies, frameworks, databases, and message queues for backend development.
+
+## Contents
+
+- Use When
+- Fast Rules
+- Programming Languages
+- Databases
+- ORMs And Database Tools
+- Message Queues And Event Streaming
+- Framework Comparisons
+- Technology Selection Flowchart
+- Situational Defaults
+- Common Pitfalls
+
+## Use When
+
+- Choosing or comparing backend languages, frameworks, databases, queues, caches, or ORMs
+- Reviewing whether a proposed technology fits the team's constraints
+- Planning a stack change or new backend service
+
+## Fast Rules
+
+- Start with the repository's existing stack and team familiarity.
+- Prefer boring, well-supported tools unless scale, latency, compliance, or product constraints require more complexity.
+- Avoid adding distributed infrastructure before the app has clear operational need and ownership.
+- Verify current framework and provider docs before committing to version-specific guidance.
 
 ## Programming Languages
 
@@ -72,9 +98,7 @@ Core technologies, frameworks, databases, and message queues for modern backend 
 - Sorted sets
 - Streams
 
-## ORMs & Database Tools
-
-### Modern ORMs (2025)
+## ORMs And Database Tools
 
 - **Drizzle ORM**
 - **Prisma**
@@ -89,7 +113,7 @@ Best for task queues and request/reply patterns.
 
 ### Apache Kafka
 
-Best for event streaming and high-throughput systems.
+Best for durable event streaming, replay, and high-throughput systems when the team can operate it.
 
 ## Framework Comparisons
 
@@ -113,16 +137,25 @@ Best for event streaming and high-throughput systems.
 ## Technology Selection Flowchart
 
 ```text
-Start → Need real-time features?
-       → Yes → Node.js + Socket.io
-       → No → Need ML/AI integration?
-              → Yes → Python + FastAPI
-              → No → Need maximum performance?
-                     → Yes → Rust + Axum
-                     → No → Need high concurrency?
-                            → Yes → Go + Gin
-                            → No → Node.js + NestJS
+Start -> Existing repo stack fits?
+       -> Yes -> extend existing stack
+       -> No -> Need ML/data-heavy workflow?
+              -> Yes -> Python ecosystem
+              -> No -> Need very high concurrency/simple deploys?
+                     -> Yes -> Go
+                     -> No -> Need memory safety/performance-critical code?
+                            -> Yes -> Rust
+                            -> No -> TypeScript or Python based on team fit
 ```
+
+## Situational Defaults
+
+- REST: simple public APIs, CRUD-heavy services, broad client compatibility
+- GraphQL: many client-specific read shapes, mature schema governance, strong resolver performance discipline
+- gRPC: internal service-to-service APIs with typed contracts and low-latency needs
+- Redis pub/sub or streams: simple realtime, caching, lightweight queues
+- RabbitMQ, SQS, Pub/Sub: work queues and business events without Kafka-level stream requirements
+- Kafka: durable high-throughput streams, replay, event logs, and teams prepared to operate it
 
 ## Common Pitfalls
 

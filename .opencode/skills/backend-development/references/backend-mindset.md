@@ -1,6 +1,16 @@
 # Backend Development Mindset
 
-Problem-solving approaches, architectural thinking, and collaboration patterns for backend engineers (2025).
+Problem-solving approaches, architectural thinking, and collaboration patterns for backend engineers.
+
+## Contents
+
+- Problem-Solving Mindset
+- Trade-Off Analysis
+- Technical Debt Management
+- Architectural Thinking
+- Developer Mindset
+- Collaboration And Communication
+- Mindset Checklist
 
 ## Problem-Solving Mindset
 

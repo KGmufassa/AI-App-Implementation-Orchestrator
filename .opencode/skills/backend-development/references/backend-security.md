@@ -1,15 +1,37 @@
 # Backend Security
 
-Security best practices, OWASP Top 10 mitigation, and modern security standards (2025).
+Security best practices, OWASP guidance, input validation, abuse controls, headers, and secrets handling.
 
-## OWASP Top 10 (2025 RC1)
+## Contents
 
-### New Entries (2025)
+- Use When
+- Fast Rules
+- OWASP Top 10
+- Input Validation
+- Rate Limiting
+- Security Headers
+- Secrets Management
+- API Security Checklist
+- Common Security Pitfalls
 
-- **Supply Chain Failures**
-- **Mishandling of Exceptional Conditions**
+## Use When
 
-### Top Vulnerabilities & Mitigation
+- Reviewing backend vulnerabilities, validation, rate limits, headers, secrets, CORS, SSRF, or abuse controls
+- Hardening APIs before production
+- Adding security checks to implementation, tests, or CI
+
+## Fast Rules
+
+- Verify current OWASP Top 10, OWASP Cheat Sheets, and regulatory requirements for security reviews.
+- Enforce authorization on the backend, not only in clients or gateways.
+- Prefer allow-lists, parameterized queries, scoped credentials, and safe error messages.
+- Treat example limits and headers as starting points, then tune them to the app and threat model.
+
+## OWASP Top 10
+
+Use the current OWASP Top 10 and OWASP Cheat Sheets as primary guidance. If a specific dated OWASP release matters, verify it before citing it.
+
+### Common Vulnerabilities & Mitigation
 
 #### 1. Broken Access Control
 
@@ -105,7 +127,6 @@ class CreateUserDto {
 
   @IsString()
   @MinLength(12)
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
   password: string;
 }
 ```
@@ -169,8 +190,8 @@ const limiter = rateLimit({
 
 ## API Security Checklist
 
-- [ ] HTTPS/TLS 1.3 only
-- [ ] OAuth 2.1 + JWT
+- [ ] HTTPS enforced; TLS settings match current platform and compliance requirements
+- [ ] OAuth/OIDC, session, JWT, or API-key model fits the client and risk profile
 - [ ] Rate limiting on all endpoints
 - [ ] Input validation on all inputs
 - [ ] Parameterized queries
@@ -192,7 +213,7 @@ const limiter = rateLimit({
 
 ## Resources
 
-- **OWASP Top 10 (2025):** https://owasp.org/www-project-top-ten/
+- **OWASP Top 10:** https://owasp.org/www-project-top-ten/
 - **OWASP Cheat Sheets:** https://cheatsheetseries.owasp.org/
 - **CWE Top 25:** https://cwe.mitre.org/top25/
 - **NIST Guidelines:** https://www.nist.gov/cybersecurity

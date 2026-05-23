@@ -1,6 +1,18 @@
 # Backend Debugging Strategies
 
-Comprehensive debugging techniques, tools, and best practices for backend systems (2025).
+Comprehensive debugging techniques, tools, and best practices for backend systems.
+
+## Contents
+
+- Debugging Mindset
+- Logging Best Practices
+- Debugging Tools By Language
+- Database Debugging
+- API Debugging
+- Performance Debugging
+- Production Debugging
+- Common Debugging Scenarios
+- Debugging Checklist
 
 ## Debugging Mindset
 

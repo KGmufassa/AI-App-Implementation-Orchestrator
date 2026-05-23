@@ -1,6 +1,34 @@
 # Backend Performance & Scalability
 
-Performance optimization strategies, caching patterns, and scalability best practices (2025).
+Performance optimization strategies, caching patterns, and scalability practices.
+
+## Contents
+
+- Use When
+- Fast Rules
+- Database Performance
+- Caching Strategies
+- Load Balancing
+- Asynchronous Processing
+- CDN
+- Scaling
+- Database Scaling Patterns
+- Performance Monitoring
+- Optimization Checklist
+- Common Pitfalls
+
+## Use When
+
+- Investigating slow queries, latency, throughput, resource saturation, caching, pooling, or scaling
+- Reviewing performance-sensitive backend changes
+- Choosing where to measure and optimize
+
+## Fast Rules
+
+- Measure before optimizing unless the bug is obvious.
+- Fix query shape, indexes, pooling, and unbounded work before adding distributed systems.
+- Add caching only with an invalidation strategy and observability for hit rate and stale data.
+- Treat numeric impact claims as workload-dependent; benchmark in the target environment.
 
 ## Database Performance
 
@@ -8,7 +36,7 @@ Performance optimization strategies, caching patterns, and scalability best prac
 
 #### Indexing Strategies
 
-**Impact:** 30% disk I/O reduction, 10-100x query speedup
+Indexes can remove table scans and dramatically improve query latency when they match real query patterns.
 
 ```sql
 CREATE INDEX idx_users_email ON users(email);
@@ -25,7 +53,7 @@ CREATE INDEX idx_active_users ON users(email) WHERE active = true;
 
 ### Connection Pooling
 
-**Impact:** 5-10x performance improvement
+Connection pooling reduces connection overhead and protects the database from unbounded client concurrency.
 
 ```typescript
 import { Pool } from 'pg';

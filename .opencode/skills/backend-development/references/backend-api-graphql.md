@@ -1,5 +1,14 @@
 # GraphQL API Design
 
+## Contents
+
+- Schema Definition
+- Queries
+- Mutations
+- Resolvers
+- Best Practices
+- DataLoader Example
+
 ## Schema Definition
 
 ```graphql

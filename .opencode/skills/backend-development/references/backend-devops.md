@@ -1,6 +1,33 @@
 # Backend DevOps Practices
 
-CI/CD pipelines, containerization, deployment strategies, and monitoring (2025).
+CI/CD pipelines, containerization, deployment strategies, and monitoring for backend systems.
+
+## Contents
+
+- Use When
+- Fast Rules
+- Deployment Strategies
+- Containerization With Docker
+- Kubernetes Orchestration
+- CI/CD Pipelines
+- Monitoring And Observability
+- Health Checks
+- Secrets Management
+- Infrastructure As Code
+- DevOps Checklist
+
+## Use When
+
+- Designing or reviewing Docker, CI/CD, deployment, Kubernetes, health checks, observability, secrets, or IaC
+- Preparing a backend for production operations
+- Debugging release, environment, or runtime readiness problems
+
+## Fast Rules
+
+- Match deployment guidance to the repo's current platform and operational maturity.
+- Prefer simple deployments until traffic, availability, or compliance needs justify Kubernetes, service mesh, or progressive delivery.
+- Keep secrets in managed secret stores or environment-specific secret injection; never put real secrets in examples or committed config.
+- Verify current provider and tool documentation before changing production infrastructure.
 
 ## Deployment Strategies
 
@@ -42,15 +69,16 @@ const showNewCheckout = await client.variation('new-checkout', user, false);
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 COPY . .
 RUN npm run build
 
 FROM node:20-alpine
 WORKDIR /app
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
 COPY package.json ./
+COPY package-lock.json ./
+RUN npm ci --omit=dev
+COPY --from=builder /app/dist ./dist
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
 USER nodejs
@@ -69,7 +97,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@db:5432/myapp
+      - DATABASE_URL=${DATABASE_URL}
       - REDIS_URL=redis://redis:6379
     depends_on:
       - db
@@ -78,7 +106,7 @@ services:
   db:
     image: postgres:15-alpine
     environment:
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=myapp
     volumes:
       - postgres-data:/var/lib/postgresql/data
@@ -234,7 +262,7 @@ app.get('/health/readiness', async (req, res) => {
 ### HashiCorp Vault
 
 ```bash
-vault kv put secret/myapp/db password=super-secret
+vault kv put secret/myapp/db password='<managed-secret-value>'
 vault kv get -field=password secret/myapp/db
 ```
 
@@ -247,8 +275,10 @@ metadata:
   name: db-secret
 type: Opaque
 stringData:
-  url: postgresql://user:pass@host:5432/db
+  url: '<database-url-from-secret-manager>'
 ```
+
+Use placeholder values only in examples. For real deployments, inject secrets through the platform's secret manager and keep manifests free of plaintext credentials where possible.
 
 ## Infrastructure as Code (Terraform)
 

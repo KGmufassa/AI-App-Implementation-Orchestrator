@@ -1,8 +1,38 @@
 # Backend Authentication & Authorization
 
-Modern authentication patterns including OAuth 2.1, JWT, RBAC, and MFA (2025 standards).
+Modern authentication patterns including OAuth-aligned flows, JWT, RBAC, MFA, sessions, and API keys.
 
-## OAuth 2.1 (2025 Standard)
+## Contents
+
+- Use When
+- Fast Rules
+- OAuth And OIDC Flows
+- JWT
+- RBAC
+- MFA
+- Session Management
+- Password Security
+- API Key Authentication
+- Authentication Decision Matrix
+- Security Checklist
+
+## Use When
+
+- Designing login, session, token, RBAC, MFA, OAuth/OIDC, or API-key behavior
+- Reviewing identity-related code for security or operational risk
+- Choosing between browser sessions, bearer tokens, API keys, service credentials, and passkeys
+
+## Fast Rules
+
+- Verify current OAuth/OIDC, NIST, and OWASP guidance for security-sensitive work.
+- Prefer established identity providers unless the product explicitly needs custom identity infrastructure.
+- Keep tokens short-lived, scoped, auditable, and revocable.
+- Deny by default for authorization checks.
+- Use repository conventions and existing auth middleware before introducing a new auth stack.
+
+## OAuth And OIDC Flows
+
+Prefer OAuth 2.1-aligned authorization-code flows with PKCE where supported. OAuth 2.1 guidance has evolved through drafts and ecosystem adoption; check current primary documentation when exact standard status matters.
 
 ### Key Changes from OAuth 2.0
 
@@ -58,7 +88,7 @@ Header.Payload.Signature
 eyJhbGciOi...  .  eyJzdWIiOi...  .  SflKxwRJ...
 ```
 
-### Best Practices (2025)
+### Best Practices
 
 1. **Short expiration** - Access tokens 15 minutes, refresh tokens 7 days
 2. **Use RS256** - Asymmetric signing
@@ -166,7 +196,7 @@ const verified = speakeasy.totp.verify({
 });
 ```
 
-### FIDO2/WebAuthn (Passwordless - 2025 Standard)
+### FIDO2/WebAuthn And Passkeys
 
 **Benefits:**
 - Phishing-resistant
@@ -234,7 +264,9 @@ app.use(
 
 ## Password Security
 
-### Argon2id (2025 Standard - Replaces bcrypt)
+### Argon2id
+
+Prefer Argon2id for new password hashing when available. Existing bcrypt deployments can remain acceptable when configured with an appropriate cost and a migration plan exists for future rehashing.
 
 **Why Argon2id:**
 - Memory-hard
@@ -254,7 +286,7 @@ const hash = await argon2.hash('password123', {
 const valid = await argon2.verify(hash, 'password123');
 ```
 
-### Password Policy (2025 NIST Guidelines)
+### Password Policy
 
 - **Minimum length:** 12 characters
 - **No composition rules**
@@ -286,9 +318,9 @@ const keyRecord = await db.apiKeys.findOne({ hashedKey: providedHash });
 
 | Use Case | Recommended Approach |
 |----------|---------------------|
-| Web application | OAuth 2.1 + JWT |
-| Mobile app | OAuth 2.1 + PKCE |
-| SPA | OAuth 2.1 Authorization Code + PKCE |
+| Web application | Server-side session or OAuth/OIDC authorization code flow |
+| Mobile app | OAuth/OIDC authorization code flow with PKCE |
+| SPA | OAuth/OIDC authorization code flow with PKCE; avoid storing long-lived tokens in browser storage |
 | Server-to-server | Client credentials grant + mTLS |
 | Third-party API access | API keys with scopes |
 | High-security | WebAuthn/FIDO2 + MFA |
@@ -297,9 +329,8 @@ const keyRecord = await db.apiKeys.findOne({ hashedKey: providedHash });
 
 ## Security Checklist
 
-- [ ] OAuth 2.1 with PKCE implemented
-- [ ] JWT tokens expire in 15 minutes
-- [ ] Refresh token rotation enabled
+- [ ] OAuth/OIDC flow uses PKCE where appropriate
+- [ ] Access tokens are short-lived and refresh tokens are rotated where used
 - [ ] RBAC with deny-by-default
 - [ ] MFA required for admin accounts
 - [ ] Passwords hashed with Argon2id

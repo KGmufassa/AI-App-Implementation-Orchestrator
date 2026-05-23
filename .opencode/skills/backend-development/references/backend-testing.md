@@ -1,6 +1,33 @@
 # Backend Testing Strategies
 
-Comprehensive testing approaches, frameworks, and quality assurance practices (2025).
+Comprehensive testing approaches, frameworks, and quality assurance practices for backend systems.
+
+## Contents
+
+- Use When
+- Fast Rules
+- Test Pyramid
+- Unit Testing
+- Integration Testing
+- Contract Testing
+- Load Testing
+- E2E Testing
+- Migration Testing
+- Security Testing
+- Coverage
+- CI/CD Testing
+
+## Use When
+
+- Choosing unit, integration, contract, load, E2E, migration, or security test coverage
+- Adding verification for backend code changes
+- Reviewing CI test gates and coverage expectations
+
+## Fast Rules
+
+- Match tests to risk and existing project tooling before adding new frameworks.
+- Keep most tests fast and deterministic; reserve E2E/load/security scans for the paths that justify them.
+- Treat coverage percentages as heuristics, not substitutes for meaningful assertions.
 
 ## Test Pyramid (70-20-10 Rule)
 
@@ -115,9 +142,11 @@ docker run -t owasp/zap2docker-stable zap-baseline.py \
 ### Dependency Scanning
 
 ```bash
-npm audit fix
+npm audit
 snyk test
 ```
+
+Review dependency findings first, then make intentional upgrades. Avoid automatic fix commands unless dependency churn and lockfile changes are acceptable for the task.
 
 ## Code Coverage
 
